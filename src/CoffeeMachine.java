@@ -114,8 +114,9 @@ public class CoffeeMachine {
     public static boolean isIngredientsEnough(int waterContained, int milkContained, int coffeeBeansContained,
                                               int disposableCupsContained, CoffeeType coffee) {
 
-        if (coffee.milk == 0) coffee.milk = 1; // a partisan method to get away with the division-by-0 issue in
-        //buying espresso
+        // a partisan method to get away with the division-by-0 issue in buying espresso, so coffee.milk is assigned 1,
+//        even though it's not used
+        if (coffee.milk == 0) coffee.milk = 1;
 
         if (waterContained / coffee.water < 1) {
             System.out.println("Sorry, not enough water!");
