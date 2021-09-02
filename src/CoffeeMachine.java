@@ -96,14 +96,14 @@ public class CoffeeMachine {
                         moneyContained);
             }
             case "3" -> {
-                CoffeeType coffeeTypeCappuccino = new CoffeeType(200, 100, 12, 6);
+                CoffeeType coffeeCappuccino = new CoffeeType(200, 100, 12, 6);
                 if (isIngredientsEnough(waterContained, milkContained, coffeeBeansContained, disposableCupsContained,
-                        coffeeTypeCappuccino)) {
-                    waterContained = waterContained - coffeeTypeCappuccino.water;
-                    milkContained = milkContained - coffeeTypeCappuccino.milk;
-                    coffeeBeansContained = coffeeBeansContained - coffeeTypeCappuccino.coffeeBeans;
+                        coffeeCappuccino)) {
+                    waterContained = waterContained - coffeeCappuccino.water;
+                    milkContained = milkContained - coffeeCappuccino.milk;
+                    coffeeBeansContained = coffeeBeansContained - coffeeCappuccino.coffeeBeans;
                     disposableCupsContained--;
-                    moneyContained = moneyContained + coffeeTypeCappuccino.cost;
+                    moneyContained = moneyContained + coffeeCappuccino.cost;
                 }
                 doAction(scanner, waterContained, milkContained, coffeeBeansContained, disposableCupsContained,
                         moneyContained);
@@ -113,11 +113,16 @@ public class CoffeeMachine {
 
     public static boolean isIngredientsEnough(int waterContained, int milkContained, int coffeeBeansContained,
                                               int disposableCupsContained, CoffeeType coffee) {
+
+        if (coffee.milk == 0) coffee.milk = 1; // a partisan method to get away with the division-by-0 issue in
+        //buying espresso
+
         if (waterContained / coffee.water < 1) {
             System.out.println("Sorry, not enough water!");
             return false;
         } else if (milkContained / coffee.milk < 1) {
             System.out.println("Sorry, not enough milk!");
+            return false;
         } else if (coffeeBeansContained / coffee.coffeeBeans < 1) {
             System.out.println("Sorry, not enough coffee beans!");
             return false;
